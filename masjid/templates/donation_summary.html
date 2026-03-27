@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donation Summary</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #ccc; text-align: center; }
+        th { background-color: #f2f2f2; }
+        .btn-print, .btn-filter {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .filter-form {
+            margin-bottom: 30px;
+        }
+        .status-approved { color: green; font-weight: bold; }
+        .status-pending { color: orange; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Donation Summary Report</h2>
+
+    <h3>Tabung Summary</h3>
+    <table>
+        <tr>
+            <th>Tabung Name</th>
+            <th>Description</th>
+            <th>Total Collected (RM)</th>
+            <th>Total Disbursed (RM)</th>
+            <th>Remaining Balance (RM)</th>
+        </tr>
+        {% for tabung in tabungs %}
+        <tr>
+            <td>{{ tabung.name }}</td>
+            <td>{{ tabung.description }}</td>
+            <td>{{ tabung.total_collected|floatformat:2 }}</td>
+            <td>{{ tabung.total_disbursed|floatformat:2 }}</td>
+            <td>{{ tabung.remaining_balance|floatformat:2 }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No tabungs found.</td></tr>
+        {% endfor %}
+    </table>
+
+    <h3>
+        Donor Details
+        {% if start_date and end_date %}
+        ({{ start_date }} to {{ end_date }})
+        {% endif %}
+    </h3>
+
+    <table>
+        <tr>
+            <th>Donor Name</th>
+            <th>Phone Number</th>
+            <th>Donation Type</th>
+            <th>Amount (RM)</th>
+            <th>Date</th>
+            <th>Receipt</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for donor in donor_entries %}
+        <tr>
+            <td>{{ donor.donor_name }}</td>
+            <td>{{ donor.phone_number }}</td>
+            <td>{{ donor.donation_type.name }}</td>
+            <td>{{ donor.amount|floatformat:2 }}</td>
+            <td>{{ donor.date|date:"Y-m-d H:i A" }}</td>
+            <td>
+                {% if donor.receipt_image %}
+                    <a href="{{ donor.receipt_image.url }}" target="_blank">View Receipt</a>
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td>
+                {% if donor.is_approved %}
+                    <span class="status-approved">✅ Approved</span>
+                {% else %}
+                    <span class="status-pending">Pending</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not donor.is_approved %}
+                    <a href="{% url 'approve_donation' donor.id %}" style="color: green;">Approve</a> |
+                {% endif %}
+                <a href="{% url 'remove_donation' donor.id %}" style="color: red;" onclick="return confirm('Are you sure you want to remove this donation?')">Remove</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8">No donations in this range.</td></tr>
+        {% endfor %}
+    </table>
+
+    <button class="btn-print" onclick="window.print()">🖨️ Print or Save as PDF</button>
+
+</body>
+</html>

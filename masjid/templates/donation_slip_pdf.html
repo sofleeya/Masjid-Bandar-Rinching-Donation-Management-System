@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 14px; padding: 20px; }
+        h2 { text-align: center; color: #333; }
+        .field { margin-bottom: 10px; }
+        .field label { font-weight: bold; }
+        .footer { margin-top: 20px; text-align: center; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h2>Donation Slip</h2>
+
+    <div class="field"><label>Name:</label> {{ entry.donor_name }}</div>
+    <div class="field"><label>Phone:</label> {{ entry.phone_number }}</div>
+    <div class="field"><label>Donation Type:</label> {{ entry.donation_type.name }}</div>
+    <div class="field"><label>Amount (RM):</label> {{ entry.amount }}</div>
+    <div class="field"><label>Date:</label> {{ entry.date|date:"d M Y, h:i A" }}</div>
+
+    <div class="footer">Thank you for your generosity. May you be rewarded abundantly.</div>
+
+ 
+
+</body>
+</html>

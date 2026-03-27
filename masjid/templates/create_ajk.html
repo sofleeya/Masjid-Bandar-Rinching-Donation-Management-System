@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create AJK Account</title>
+  <style>
+    body { font-family: Arial; background: #f4f4f4; padding: 40px; }
+    form { background: white; padding: 30px; border-radius: 8px; width: 400px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, button { width: 100%; padding: 10px; margin-top: 10px; }
+    h2 { text-align: center; }
+    .success { color: green; }
+    .error { color: red; }
+    a { display: block; margin-top: 20px; text-align: center; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<h2>Create AJK Masjid Account</h2>
+
+{% if messages %}
+  {% for message in messages %}
+    <p class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+
+<form method="POST">
+  {% csrf_token %}
+  <label for="username">Username:</label>
+  <input type="text" name="username" required>
+
+  <label for="password">Password:</label>
+  <input type="password" name="password" required>
+
+  <label for="phone_number">Phone Number:</label>
+  <input type="text" name="phone_number" required>
+
+  <label for="email">Email:</label>
+  <input type="email" name="email">
+
+  <button type="submit">Create Account</button>
+</form>
+
+<a href="{% url 'president_dashboard' %}">← Back to Dashboard</a>
+
+</body>
+</html>

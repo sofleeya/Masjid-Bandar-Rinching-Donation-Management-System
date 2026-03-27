@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Disbursement Requests</title>
+  <style>
+    body { font-family: Arial; background-color: #f4f4f4; padding: 30px; }
+    table { width: 100%; background: white; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 12px; text-align: left; }
+    th { background-color: #343a40; color: white; }
+    .approve-btn {
+      background-color: #28a745;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Pending Disbursement Requests</h2>
+
+{% if requests %}
+<table>
+  <thead>
+    <tr>
+      <th>Donation Type</th>
+      <th>Amount (RM)</th>
+      <th>Purpose</th>
+      <th>Requested By</th>
+      <th>Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for disb in requests %}
+    <tr>
+      <td>{{ disb.donation_type.name }}</td>
+      <td>{{ disb.amount }}</td>
+      <td>{{ disb.purpose }}</td>
+      <td>{{ disb.requested_by.username }}</td>
+      <td>{{ disb.requested_at }}</td>
+      <td>
+        <a href="{% url 'approve_request' disb.id %}" class="approve-btn" onclick="return confirm('Approve this request?')">Approve</a>
+        <a href="{% url 'reject_request' disb.id %}" class="approve-btn" style="background-color: #dc3545;" onclick="return confirm('Reject this request?')">Reject</a>
+
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No pending disbursement requests.</p>
+{% endif %}
+
+<br>
+<a href="{% url 'president_dashboard' %}">← Back to Dashboard</a>
+
+</body>
+</html>

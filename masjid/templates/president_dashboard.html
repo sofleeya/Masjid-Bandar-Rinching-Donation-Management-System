@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>President Dashboard</title>
+  <style>
+    body { font-family: Arial; background-color: #f8f8f8; margin: 0; padding: 0; }
+    header, footer { background-color: #343a40; color: white; padding: 15px; text-align: center; }
+    .container { padding: 30px; }
+    .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    a.button { display: inline-block; padding: 10px 20px; background: #28a745; color: white; border-radius: 5px; text-decoration: none; }
+    a.button:hover { background: #218838; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Welcome, President</h1>
+  <form method="POST" action="{% url 'logout' %}" style="margin-top: 10px;">
+    {% csrf_token %}
+    <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 5px;">Logout</button>
+  </form>
+</header>
+
+
+<div class="container">
+
+  <div class="card">
+    <h2>Create AJK Masjid Account</h2>
+    <a href="{% url 'create_ajk' %}" class="button">Add AJK Account</a>
+  </div>
+
+  <div class="card">
+    <h2>Manage Donations</h2>
+    <a href="{% url 'create_tabung' %}" class="button">Create New Tabung</a>
+  </div>
+
+  <div class="card">
+    <h2>Disbursement Approvals</h2>
+    <a href="{% url 'approve_disbursement' %}" class="button">View Requests</a>
+  </div>
+
+  <div class="card">
+    <h2>Generate Summary</h2>
+    <a href="{% url 'donation_summary' %}" class="button">Download Report</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2025 Masjid Donation System</p>
+ 
+</form>
+
+</footer>
+
+</body>
+</html>

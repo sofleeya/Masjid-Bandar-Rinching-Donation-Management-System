@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Donation Summary</title>
+  <style>
+    body { font-family: Arial; background: #f0f0f0; padding: 30px; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    th { background-color: #007bff; color: white; }
+    h2 { margin-bottom: 20px; }
+    .back { margin-top: 20px; display: inline-block; }
+  </style>
+</head>
+<body>
+
+  <h2>Donation Summary by Tabung</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tabung Name</th>
+        <th>Total Collected (RM)</th>
+        <th>Total Disbursed (RM)</th>
+        <th>Remaining Balance (RM)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tabung in tabungs %}
+      <tr>
+        <td>{{ tabung.name }}</td>
+        <td>{{ tabung.total_collected|floatformat:2 }}</td>
+        <td>{{ tabung.total_disbursed|floatformat:2 }}</td>
+        <td>{{ tabung.remaining_balance|floatformat:2 }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">No donations yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'ajk_dashboard' %}" class="back">← Back to Dashboard</a>
+
+</body>
+</html>

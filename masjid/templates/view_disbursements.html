@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Disbursement Requests</title>
+  <style>
+    body { font-family: Arial; padding: 30px; background: #f9f9f9; }
+    h2 { margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    th { background: #007bff; color: white; }
+
+    .status-pending { color: orange; font-weight: bold; }
+    .status-approved { color: green; font-weight: bold; }
+    .status-rejected { color: red; font-weight: bold; }
+
+    .action-button {
+      background: none;
+      border: none;
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    .action-button:hover {
+      color: darkblue;
+    }
+
+    .search-box {
+      margin-bottom: 15px;
+    }
+
+    .search-box input[type="text"] {
+      padding: 6px;
+      width: 250px;
+    }
+
+    .back {
+      margin-top: 25px;
+      display: inline-block;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .back:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>My Disbursement Requests</h2>
+
+  <form method="GET" class="search-box">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search by purpose...">
+    <button type="submit">Search</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tabung</th>
+        <th>Amount (RM)</th>
+        <th>Purpose</th>
+        <th>Status</th>
+        <th>Date Requested</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in disbursements %}
+        <tr>
+          <td>{{ d.donation_type.name }}</td>
+          <td>{{ d.amount }}</td>
+          <td>{{ d.purpose }}</td>
+          <td>
+            {% if d.is_approved %}
+              <span class="status-approved">Approved</span>
+            {% elif d.approved_by %}
+              <span class="status-rejected">Rejected</span>
+            {% else %}
+              <span class="status-pending">Pending</span>
+            {% endif %}
+          </td>
+          <td>{{ d.requested_at|date:"d M Y, h:i A" }}</td>
+          <td>
+            {% if not d.is_approved and not d.approved_by %}
+              <a href="{% url 'edit_disbursement' d.id %}" class="action-button">Edit</a> |
+              <form action="{% url 'cancel_disbursement' d.id %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="action-button" onclick="return confirm('Cancel this request?')">Cancel</button>
+              </form>
+            {% else %}
+              -
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">No disbursement requests found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'ajk_dashboard' %}" class="back">← Back to Dashboard</a>
+
+</body>
+</html>

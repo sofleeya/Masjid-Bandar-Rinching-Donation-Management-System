@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Masjid Login Page</title>
+  <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Top Navbar */
+    .top-bar {
+      background-color: #343a40;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      background-color: #007bff;
+      padding: 8px 14px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 50px auto;
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"], input[type="password"], select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    footer {
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
+
+    .footer-link {
+      display: block;
+      margin-top: 10px;
+      color: #ffc107;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+   <a href="{% url 'home' %}">Back to Homepage</a>
+
+  </div>
+
+  {% if messages %}
+  <ul style="color:red;">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+
+  <!-- Login Form -->
+  <div class="login-container">
+    <h2>Masjid Admin Login</h2>
+    <form method="POST">
+      {% csrf_token %}
+
+  <label for="userRole">Login as:</label>
+  <select id="userRole" name="userRole" required>
+    <option value="">-- Select User Type --</option>
+    <option value="ajk">AJK Masjid</option>
+    <option value="president">President Masjid</option>
+  </select>
+
+  <label for="username">Username:</label>
+  <input type="text" name="username" id="username" required placeholder="Enter username" />
+
+  <label for="password">Password:</label>
+  <input type="password" name="password" id="password" required placeholder="Enter password" />
+
+  <button type="submit">Login</button>
+</form>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Masjid Donation System</p>
+    <a href="{% url 'home' %}">Back to Homepage</a>
+  </footer>
+
+ 
+
+</body>
+</html>

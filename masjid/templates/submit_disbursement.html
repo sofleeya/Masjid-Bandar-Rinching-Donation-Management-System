@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Disbursement</title>
+  <style>
+    body { font-family: Arial; margin: 30px; }
+    label { display: block; margin-top: 15px; }
+    input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; }
+    button:hover { background: #218838; }
+    .back { margin-top: 20px; display: inline-block; }
+  </style>
+</head>
+<body>
+
+  <h2>Submit New Disbursement</h2>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <label for="donation_type">Select Tabung:</label>
+    <select name="donation_type" required>
+      <option value="">-- Choose Tabung --</option>
+      {% for d in donations %}
+        <option value="{{ d.id }}">{{ d.name }} (Remaining: RM{{ d.remaining_balance|floatformat:2 }})</option>
+      {% endfor %}
+    </select>
+
+    <label for="amount">Amount (RM):</label>
+    <input type="number" name="amount" step="0.01" required>
+
+    <label for="purpose">Purpose / Reason:</label>
+    <textarea name="purpose" rows="4" required></textarea>
+
+    <button type="submit">Submit Request</button>
+  </form>
+
+  <a href="{% url 'ajk_dashboard' %}" class="back">← Back to Dashboard</a>
+
+</body>
+</html>

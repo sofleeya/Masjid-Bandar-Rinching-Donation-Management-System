@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Tabung</title>
+  <style>
+    body { font-family: Arial; background-color: #f4f4f4; padding: 30px; }
+    .form-container {
+      max-width: 500px; margin: auto;
+      background: white; padding: 20px;
+      border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea, button {
+      width: 100%; padding: 10px; margin-top: 10px;
+      border: 1px solid #ccc; border-radius: 4px;
+    }
+    button { background: #28a745; color: white; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Edit Tabung</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <label>Tabung Name</label>
+    <input type="text" name="name" value="{{ tabung.name }}" required>
+
+    <label>Description</label>
+    <textarea name="description" rows="4">{{ tabung.description }}</textarea>
+
+    <button type="submit">Update Tabung</button>
+  </form>
+
+  <br>
+  <a href="{% url 'create_tabung' %}">← Back to Tabung List</a>
+</div>
+
+</body>
+</html>

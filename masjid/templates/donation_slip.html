@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Donation Slip</title>
+  <style>
+    body { font-family: Arial; background: #f0f2f5; padding: 40px; }
+    .slip { background: white; padding: 30px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #28a745; }
+    .field { margin-bottom: 15px; }
+    .field label { font-weight: bold; display: block; }
+    .field span { display: block; margin-top: 5px; }
+    .footer { text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <div class="slip">
+    <h2>Donation Slip</h2>
+
+    <div class="field">
+      <label>Name:</label>
+      <span>{{ entry.donor_name }}</span>
+    </div>
+
+    <div class="field">
+      <label>Phone:</label>
+      <span>{{ entry.phone_number }}</span>
+    </div>
+
+    <div class="field">
+      <label>Donation Type:</label>
+      <span>{{ entry.donation_type.name }}</span>
+    </div>
+
+    <div class="field">
+      <label>Amount (RM):</label>
+      <span>{{ entry.amount }}</span>
+    </div>
+
+    <div class="field">
+      <label>Date:</label>
+      <span>{{ entry.date|date:"d M Y, h:i A" }}</span>
+    </div>
+
+    <div class="field">
+      <label>Thank You!</label>
+      <span>May your generosity be rewarded abundantly.</span>
+    </div>
+
+       <div class="footer">
+        <a href="{% url 'download_slip_pdf' entry.id %}" target="_blank">📄 Download as PDF</a><br>
+        <a href="{% url 'home' %}">← Return to Homepage</a>
+    </div>
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Profile</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; background-color: #f5f5f5; }
+    form { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 8px; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input { width: 100%; padding: 10px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; }
+    .message { color: green; font-weight: bold; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">Update Profile</h2>
+
+  {% if messages %}
+    {% for msg in messages %}
+      <p class="message">{{ msg }}</p>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <label for="name">Full Name</label>
+    <input type="text" name="name" value="{{ user.first_name }}" required>
+
+    <label for="phone_number">Phone Number</label>
+    <input type="text" name="phone_number" value="{{ user.phone_number }}" required>
+
+    <label for="new_password">New Password (optional)</label>
+    <input type="password" name="new_password" placeholder="Leave blank to keep current password">
+
+    <button type="submit">Update Profile</button>
+  </form>
+
+</body>
+</html>
