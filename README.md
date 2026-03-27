@@ -168,13 +168,3 @@ Developed by **Sofea Aleeya**
   <sub>Built to support digital transformation in mosque management 🕌</sub>
 </div>
 
----
-
-Kalau kau nak lagi padu 🔥
-aku boleh tambah:
-
-* screenshot UI (GitHub nampak PRO)
-* badges (Python, Django, etc.)
-* or combine all your projects jadi **portfolio GitHub profile README**
-
-Just cakap 👍
