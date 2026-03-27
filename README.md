@@ -1,5 +1,3 @@
-Got it — you want **FULL README in GitHub style (copy paste terus, no edit, siap formatting)** just like HALAI 🔥
-Here you go 👇
 
 ---
 
